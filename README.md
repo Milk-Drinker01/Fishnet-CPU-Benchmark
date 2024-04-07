@@ -1,13 +1,15 @@
 # Fishnet-CPU-Benchmark
  A benchmark to test the CPU performance of Fishnet networking engine
 
- This benchmark will test 2 scenarios:
- 1) an integration of Kinematic Character controller, to test the performance of prediction v2, plus randomly moving server-sided objects
- 2) a raw test of the replication layer, using only randomly moving server-sided objects
+This benchmark will test 2 scenarios:
+1) an integration of Kinematic Character controller, to test the performance of prediction v2, plus randomly moving server-sided objects
+2) a raw test of the replication layer, using only randomly moving server-sided objects
 
 Notes:
 - The KCC integration was written by me, feel free to use it in your own projects
 - The Move/Wander objects were written by Steak, and stolen from his bandwidth benchmark repo: https://github.com/StinkySteak/unity-netcode-benchmark
+
+
 
 **EARLY RESULTS**
 
