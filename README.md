@@ -8,6 +8,7 @@ This benchmark will test 2 scenarios:
 Notes:
 - The KCC integration was written by me, feel free to use it in your own projects
 - The Move/Wander objects were written by Steak, and stolen from his bandwidth benchmark repo: https://github.com/StinkySteak/unity-netcode-benchmark
+- Made with fishnet 4.10, the latest version at the time the benchmark was written
 
 
 
