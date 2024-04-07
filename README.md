@@ -6,7 +6,8 @@ This benchmark will test 2 scenarios:
 2) a raw test of the replication layer, using only randomly moving server-sided objects
 
 Notes:
-- The KCC integration was written by me, feel free to use it in your own projects
+- You will need to import Kinematic Character Controller: https://assetstore.unity.com/packages/tools/physics/kinematic-character-controller-99131
+- The Fishnet integration of KCC was written by me, feel free to use it in your own projects
 - The Move/Wander objects were written by Steak, and stolen from his bandwidth benchmark repo: https://github.com/StinkySteak/unity-netcode-benchmark
 - Made with fishnet 4.10, the latest version at the time the benchmark was written
 
