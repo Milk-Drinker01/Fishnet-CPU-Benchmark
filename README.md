@@ -8,7 +8,7 @@ This benchmark will test 2 scenarios:
 Notes:
 - Made with unity 2023.2 (specifically 2023.2.2f1), so that i could use Multiplayer Playmode to easily test functionality
 - Made with fishnet 4.10, the latest version at the time the benchmark was written
-- Tickrate: 33
+- Tickrate: 33. Physics mode: disabled
 - You will need to import Kinematic Character Controller: https://assetstore.unity.com/packages/tools/physics/kinematic-character-controller-99131
 - The Fishnet integration of KCC was written by me, feel free to use it in your own projects
 - The Move/Wander objects were written by Steak, and stolen from his bandwidth benchmark repo: https://github.com/StinkySteak/unity-netcode-benchmark
