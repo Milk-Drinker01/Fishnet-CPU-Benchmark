@@ -6,7 +6,7 @@ This benchmark will test 2 scenarios:
 2) a raw test of the replication layer, using only randomly moving server-sided objects
 
 Notes:
-- Made with unity 2023.2.2f1, so that i could use Multiplayer Playmode to easily test functionality
+- Made with unity 2023.2 (specifically 2023.2.2f1), so that i could use Multiplayer Playmode to easily test functionality
 - Made with fishnet 4.10, the latest version at the time the benchmark was written
 - You will need to import Kinematic Character Controller: https://assetstore.unity.com/packages/tools/physics/kinematic-character-controller-99131
 - The Fishnet integration of KCC was written by me, feel free to use it in your own projects
