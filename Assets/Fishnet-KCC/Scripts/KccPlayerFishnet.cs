@@ -38,16 +38,16 @@ namespace FishnetKCC
     public struct ReconcileData : IReconcileData
     {
         public Vector3 Position;
-        public Vector3 Velocity;
+        public Vector3 BaseVelocity;
         public KCCNetworkState KCCData;
         public Vector2 YawPitch;
         public bool Crouching;
 
 
-        public ReconcileData(Vector3 position, Vector3 velocity, KCCNetworkState netState, Vector2 yawPitch, bool crouching)
+        public ReconcileData(Vector3 position, Vector3 baseVelocity, KCCNetworkState netState, Vector2 yawPitch, bool crouching)
         {
             Position = position;
-            Velocity = velocity;
+            BaseVelocity = baseVelocity;
             KCCData = netState;
             YawPitch = yawPitch;
             Crouching = crouching;
@@ -83,7 +83,7 @@ namespace FishnetKCC
         private AdditionalKCCNetworkInfo[] AdditionalStateInfoBuffer;
         private ReconcileData[] SnapshotBuffer;   //we have to store this manually if we want to interpolate snapshots
 
-        public Vector3 Velocity;
+        public Vector3 BaseVelocity;
         public Vector2 YawPitch;
         public bool Crouching;
 
@@ -263,7 +263,7 @@ namespace FishnetKCC
             if (IsServerInitialized)
                 return;
             transform.position = rd.Position;
-            Velocity = rd.Velocity;
+            BaseVelocity = rd.BaseVelocity;
             KCCState = rd.KCCData;
             YawPitch = rd.YawPitch;
             Crouching = rd.Crouching;
@@ -301,14 +301,14 @@ namespace FishnetKCC
             if (IsOwner || IsServerInitialized)
             {
                 Simulate();
-                Velocity = _motor.Velocity;
+                BaseVelocity = _motor.BaseVelocity;
 
                 KCCState = KCCStateToNetworkState(_motor.GetState(), (int)input.GetTick());
             }
 
             if (SnapshotBuffer == null)
                 InitSnapshotBuffer();
-            ReconcileData rd = new ReconcileData(transform.position, Velocity, KCCState, YawPitch, Crouching);
+            ReconcileData rd = new ReconcileData(transform.position, BaseVelocity, KCCState, YawPitch, Crouching);
             int SnapShotIndex = (int)input.GetTick() % SnapshotBuffer.Length;
             SnapshotBuffer[SnapShotIndex] = rd;
             _latestSimulatedTick = (int)input.GetTick();
@@ -328,7 +328,7 @@ namespace FishnetKCC
 
             transform.position = state.Position;
             transform.rotation = state.Rotation;
-            Velocity = state.BaseVelocity;
+            BaseVelocity = state.BaseVelocity;
 
             kccNetState.MustUnground = state.MustUnground;
             kccNetState.MustUngroundTime = state.MustUngroundTime;
@@ -357,7 +357,7 @@ namespace FishnetKCC
 
             kccState.Position = transform.position;
             kccState.Rotation = transform.rotation;
-            kccState.BaseVelocity = Velocity;
+            kccState.BaseVelocity = BaseVelocity;
 
             kccState.MustUnground = kccNetState.MustUnground;
             kccState.MustUngroundTime = kccNetState.MustUngroundTime;
