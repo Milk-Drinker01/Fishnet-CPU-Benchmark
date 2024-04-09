@@ -176,19 +176,10 @@ namespace FishnetKCC
         public void SetLocomotionState(AdditionalKCCNetworkInfo state)
         {
             _jumpConsumed = state.JumpConsumed;
-            _jumpedThisFrame = state.JumpedThisFrame;
         }
-        public void GetLocomotionState(ref AdditionalKCCNetworkInfo state)
+        public void GetLocomotionState(AdditionalKCCNetworkInfo state)
         {
             state.JumpConsumed = _jumpConsumed;
-            state.JumpedThisFrame = _jumpedThisFrame;
-        }
-        public AdditionalKCCNetworkInfo GetLocomotionState()
-        {
-            AdditionalKCCNetworkInfo state = new AdditionalKCCNetworkInfo();
-            state.JumpConsumed = _jumpConsumed;
-            state.JumpedThisFrame = _jumpedThisFrame;
-            return state;
         }
 
 

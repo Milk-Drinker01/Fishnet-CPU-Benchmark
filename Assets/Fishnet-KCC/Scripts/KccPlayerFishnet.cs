@@ -62,10 +62,9 @@ namespace FishnetKCC
 
     //put things that you dont really give a fuck about being networked here
     //but need to be rolled back in the simulation
-    public struct AdditionalKCCNetworkInfo
+    public class AdditionalKCCNetworkInfo
     {
         public bool JumpConsumed;
-        public bool JumpedThisFrame;
         public Rigidbody AttachedRigidbody;
         public Vector3 AttachedRigidbodyVelocity;
     }
@@ -269,7 +268,6 @@ namespace FishnetKCC
             YawPitch = rd.YawPitch;
             Crouching = rd.Crouching;
             _motor.ApplyState(NetworkStateToKCCState(KCCState, (int)rd.GetTick()));
-            _locomotion.SetLocomotionState(AdditionalStateInfoBuffer[rd.GetTick() % AdditionalStateInfoBuffer.Length]);
 
             if (SnapshotBuffer == null)
                 InitSnapshotBuffer();
@@ -306,8 +304,6 @@ namespace FishnetKCC
                 Velocity = _motor.Velocity;
 
                 KCCState = KCCStateToNetworkState(_motor.GetState(), (int)input.GetTick());
-
-                _locomotion.GetLocomotionState(ref AdditionalStateInfoBuffer[input.GetTick() % AdditionalStateInfoBuffer.Length]);
             }
 
             if (SnapshotBuffer == null)
@@ -347,8 +343,10 @@ namespace FishnetKCC
 
             if (AdditionalStateInfoBuffer == null)
                 InitInfoBuffer();
-            AdditionalStateInfoBuffer[tick % AdditionalStateInfoBuffer.Length].AttachedRigidbody = state.AttachedRigidbody;
-            AdditionalStateInfoBuffer[tick % AdditionalStateInfoBuffer.Length].AttachedRigidbodyVelocity = state.AttachedRigidbodyVelocity;
+            int bufferPosition = tick % AdditionalStateInfoBuffer.Length;
+            AdditionalStateInfoBuffer[bufferPosition].AttachedRigidbody = state.AttachedRigidbody;
+            AdditionalStateInfoBuffer[bufferPosition].AttachedRigidbodyVelocity = state.AttachedRigidbodyVelocity;
+            _locomotion.GetLocomotionState(AdditionalStateInfoBuffer[bufferPosition]);
 
             return kccNetState;
         }
@@ -377,8 +375,10 @@ namespace FishnetKCC
 
             if (AdditionalStateInfoBuffer == null)
                 InitInfoBuffer();
-            kccState.AttachedRigidbody = AdditionalStateInfoBuffer[tick % AdditionalStateInfoBuffer.Length].AttachedRigidbody;
-            kccState.AttachedRigidbodyVelocity = AdditionalStateInfoBuffer[tick % AdditionalStateInfoBuffer.Length].AttachedRigidbodyVelocity;
+            int bufferPosition = tick % AdditionalStateInfoBuffer.Length;
+            kccState.AttachedRigidbody = AdditionalStateInfoBuffer[bufferPosition].AttachedRigidbody;
+            kccState.AttachedRigidbodyVelocity = AdditionalStateInfoBuffer[bufferPosition].AttachedRigidbodyVelocity;
+            _locomotion.SetLocomotionState(AdditionalStateInfoBuffer[bufferPosition]);
 
             return kccState;
         }
